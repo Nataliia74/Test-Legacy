@@ -38,6 +38,25 @@ def send_bloom(access_token: str, text: str) -> None:
     post("/bloom", data={"content": text}, access_token=access_token)
 
 
+MAX_BLOOM_LENGTH = 280
+
+def send_long_bloom(access_token: str, text: str) -> None:
+    text = " ".join(text.split())
+
+    while text:
+        chunk = text[:MAX_BLOOM_LENGTH]
+
+        if len(text) > MAX_BLOOM_LENGTH:
+            cut = chunk.rfind(" ")
+            if cut > 0:
+                chunk = chunk[:cut]
+
+        send_bloom(access_token, chunk)
+        # print(len(chunk), repr(chunk))
+
+        text = text[len(chunk):].strip()
+
+
 def follow(*, follower_access_token: str, follow_username: str) -> None:
     post(
         "/follow",
