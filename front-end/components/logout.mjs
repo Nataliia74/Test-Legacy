@@ -1,5 +1,4 @@
 import { apiService } from "../index.mjs";
-import { state } from "../index.mjs";
 
 /**
  * Create a logout component
@@ -15,14 +14,10 @@ function createLogout(template, isLoggedIn) {
 }
 
 async function handleLogout(event) {
-  event.preventDefault();
   try {
     apiService.logout();
-  } finally {
-    state.isLoggedIn = false;
-    state.user = null;
-
-    window.location.hash = "#/";
+  } catch (error) {
+    throw error;
   }
 }
 
