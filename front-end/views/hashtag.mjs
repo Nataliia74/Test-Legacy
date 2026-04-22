@@ -17,11 +17,11 @@ import { createHeading } from "../components/heading.mjs";
 function hashtagView(hashtag) {
   destroy();
 
-  const cleanHashtag = hashtag.startsWith("#") ? hashtag : `#${hashtag}`;
+  const cleanHashtag = hashtag.startsWith("#") ? hashtag.slice(1) : hashtag;
 
   if (state.currentHashtag !== cleanHashtag) {
     state.currentHashtag = cleanHashtag;
-    apiService.getBloomsByHashtag(cleanHashtag.slice(1));
+    apiService.getBloomsByHashtag(cleanHashtag);
   }
 
   renderOne(
