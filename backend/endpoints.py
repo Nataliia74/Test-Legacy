@@ -149,6 +149,7 @@ def do_follow():
         }
     )
 
+max_length = 280
 
 @jwt_required()
 def send_bloom():
@@ -158,7 +159,7 @@ def send_bloom():
     
     content = request.json["content"]
 
-    if len(content) > 280:
+    if len(content) > max_length:
         return {
             "success": False,
             "error": "Bloom content can't be more than 280 characters"
